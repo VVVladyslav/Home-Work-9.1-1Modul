@@ -1,34 +1,50 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class MyArrayList {
+    private Object[] data;
+    private int size;
 
-    int index = 2;
-
-    List<Object> list = new ArrayList<>();
-
-
-    public void add(Object value){
-        list.add(value);
+    public MyArrayList() {
+        data = new Object[10];
+        size = 0;
     }
 
-    public void remove(int index){
-        list.remove(index);
+    public void add(Object value) {
+        if (size == data.length) {
+            int newCapacity = data.length * 2;
+            Object[] newData = new Object[newCapacity];
+            System.arraycopy(data, 0, newData, 0, size);
+            data = newData;
+        }
+        data[size] = value;
+        size++;
     }
 
-    public void clear(){
-        list.clear();
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Недійсний індекс");
+        }
+
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        data[size - 1] = null;
+        size--;
     }
 
-    public int size(){
-        return list.size();
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            data[i] = null;
+        }
+        size = 0;
     }
 
-    public Object get(int index){
-        return list.get(index);
+    public int size() {
+        return size;
     }
 
-//    public <Object> java.lang.Object get(int index){
-//        return list.get(index);
-//    }
+    public Object get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Недійсний індекс");
+        }
+        return data[index];
+    }
 }
