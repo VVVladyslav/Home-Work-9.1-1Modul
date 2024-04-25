@@ -8,6 +8,5 @@ public class Main {
         myArrayList.get(0);
         myArrayList.clear();
         myArrayList.size();
-
     }
 }
